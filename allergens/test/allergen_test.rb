@@ -14,7 +14,7 @@ class AllergenTest < Minitest::Test
 
   def test_it_can_find_a_price_is_right_max
     allergen = Allergen.new
-    actual   = allergen.find_max(65)
+    actual   = allergen.send(:find_max, 65)
     expected = 64
 
     assert_equal(expected, actual)
@@ -36,4 +36,19 @@ class AllergenTest < Minitest::Test
     assert_equal(expected, actual)
   end
 
+  def test_it_can_translate_codes_to_allergies
+    allergen = Allergen.new
+    actual   = allergen.send(:translate, [4, 64])
+    expected = ["shellfish", "pollen"]
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_allergy_codes
+    allergen = Allergen.new
+    actual   = allergen.send(:find_allergy_codes, 65)
+    expected = [64, 1]
+
+    assert_equal expected, actual
+  end
 end

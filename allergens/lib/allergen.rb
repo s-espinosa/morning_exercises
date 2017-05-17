@@ -1,24 +1,7 @@
 class Allergen
   def determine_allergies(number)
-    allergies = []
-    until number == 0
-      allergies.push(find_max(number))
-      number -= allergies.last
-    end
-    allergies.map do |allergy|
-      ALLERGY_TABLE[allergy]
-    end
-  end
-
-  def find_max(number)
-    allergies = ALLERGY_TABLE.keys
-    max       = nil
-    allergies.each do |allergy|
-      if allergy <= number
-        max = allergy
-      end
-    end
-    max
+    allergy_codes = find_allergy_codes(number)
+    translate(allergy_codes)
   end
 
   private
@@ -32,4 +15,28 @@ class Allergen
     64 => "pollen",
     128 => "cats"
   }
+
+  def find_max(number)
+    allergies = ALLERGY_TABLE.keys
+    max       = nil
+    allergies.each do |allergy|
+      max = allergy if allergy <= number
+    end
+    max
+  end
+
+  def find_allergy_codes(number)
+    allergy_codes = []
+    until number == 0
+      allergy_codes.push(find_max(number))
+      number -= allergy_codes.last
+    end
+    allergy_codes
+  end
+
+  def translate(allergy_codes)
+    allergy_codes.map do |allergy|
+      ALLERGY_TABLE[allergy]
+    end
+  end
 end
