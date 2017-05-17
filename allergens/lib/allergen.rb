@@ -16,15 +16,6 @@ class Allergen
     128 => "cats"
   }
 
-  def find_max(number)
-    allergies = ALLERGY_TABLE.keys
-    max       = nil
-    allergies.each do |allergy|
-      max = allergy if allergy <= number
-    end
-    max
-  end
-
   def find_allergy_codes(number)
     allergy_codes = []
     until number == 0
@@ -32,6 +23,15 @@ class Allergen
       number -= allergy_codes.last
     end
     allergy_codes
+  end
+
+  def find_max(number)
+    allergies = ALLERGY_TABLE.keys
+    max       = nil
+    allergies.each do |allergy|
+      max = allergy if allergy <= number
+    end
+    max
   end
 
   def translate(allergy_codes)
